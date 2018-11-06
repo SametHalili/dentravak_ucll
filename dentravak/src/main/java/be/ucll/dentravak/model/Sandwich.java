@@ -1,11 +1,13 @@
 package be.ucll.dentravak.model;
 
+import java.util.List;
+
 public class Sandwich {
     private String name;
-    private String ingredients;
+    private List<String> ingredients;
     private double price;
 
-    public Sandwich(String name, String ingredients, double price) {
+    public Sandwich(String name, List<String> ingredients, double price) {
         this.name = name;
         this.ingredients = ingredients;
         this.price = price;
@@ -19,11 +21,11 @@ public class Sandwich {
         this.name = name;
     }
 
-    public String getIngredients() {
+    public List<String> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(String ingredients) {
+    public void setIngredients(List<String> ingredients) {
         this.ingredients = ingredients;
     }
 
