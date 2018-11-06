@@ -4,18 +4,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Lunch {
+public class Sandwich {
     private String name;
-    private List<String> ingredients;
+    private String ingredients;
     private double price;
 
-    public Lunch(String name, List<String> ingredients, double price) {
+    public Sandwich(String name, String ingredients, double price) {
         this.name = name;
         this.ingredients = ingredients;
         this.price = price;
     }
 
-    public Lunch() {}
+    public Sandwich() {}
 
     public String getName() {
         return name;
@@ -25,11 +25,11 @@ public class Lunch {
         this.name = name;
     }
 
-    public List<String> getIngredients() {
+    public String getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(List<String> ingredients) {
+    public void setIngredients(String ingredients) {
         this.ingredients = ingredients;
     }
 
@@ -43,17 +43,17 @@ public class Lunch {
 
     public static class LunchBuilder {
         private String name;
-        private List<String> ingredients;
+        private String ingredients;
         private double price;
 
         private LunchBuilder() {}
 
-        public static List<Lunch> getListOfRandomLunches(int amountOfLunches) {
-            List<Lunch> lunches = new ArrayList<>();
+        public static List<Sandwich> getListOfRandomLunches(int amountOfLunches) {
+            List<Sandwich> lunches = new ArrayList<>();
             for(int i = 0; i < amountOfLunches; i++) {
-                lunches.add(new Lunch.LunchBuilder()
-                        .setName("Lunch " + i)
-                        .setIngredients(Arrays.asList("bread", "cheese"))
+                lunches.add(new Sandwich.LunchBuilder()
+                        .setName("Sandwich " + i)
+                        .setIngredients("bread, cheese")
                         .setPrice(i).build());
             }
             return lunches;
@@ -64,7 +64,7 @@ public class Lunch {
             return this;
         }
 
-        public LunchBuilder setIngredients(List<String> ingredients) {
+        public LunchBuilder setIngredients(String ingredients) {
             this.ingredients = ingredients;
             return this;
         }
@@ -74,8 +74,8 @@ public class Lunch {
             return this;
         }
 
-        public Lunch build() {
-            Lunch lunch = new Lunch();
+        public Sandwich build() {
+            Sandwich lunch = new Sandwich();
             lunch.setName(this.name);
             lunch.setIngredients(this.ingredients);
             lunch.setPrice(this.price);

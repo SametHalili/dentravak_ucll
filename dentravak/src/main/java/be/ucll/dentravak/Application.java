@@ -1,7 +1,5 @@
 package be.ucll.dentravak;
 
-import be.ucll.dentravak.controller.LunchController;
-import be.ucll.dentravak.model.Lunch;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
