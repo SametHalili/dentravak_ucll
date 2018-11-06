@@ -12,6 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class LunchController {
     @RequestMapping("/lunches")
     public List<Lunch> getLunches() {
-        return null;
+        return Lunch.LunchBuilder.getListOfRandomLunches(10);
     }
 }

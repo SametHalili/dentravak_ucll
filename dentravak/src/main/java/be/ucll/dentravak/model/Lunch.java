@@ -1,5 +1,7 @@
 package be.ucll.dentravak.model;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Lunch {
@@ -45,6 +47,17 @@ public class Lunch {
         private double price;
 
         private LunchBuilder() {}
+
+        public static List<Lunch> getListOfRandomLunches(int amountOfLunches) {
+            List<Lunch> lunches = new ArrayList<>();
+            for(int i = 0; i < amountOfLunches; i++) {
+                lunches.add(new Lunch.LunchBuilder()
+                        .setName("Lunch " + i)
+                        .setIngredients(Arrays.asList("bread", "cheese"))
+                        .setPrice(i).build());
+            }
+            return lunches;
+        }
 
         public LunchBuilder setName(String name) {
             this.name = name;
