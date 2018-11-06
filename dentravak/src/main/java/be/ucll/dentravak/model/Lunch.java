@@ -66,6 +66,7 @@ public class Lunch {
             lunch.setName(this.name);
             lunch.setIngredients(this.ingredients);
             lunch.setPrice(this.price);
+            return lunch;
         }
     }
 }
