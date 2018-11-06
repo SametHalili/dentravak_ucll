@@ -2,12 +2,12 @@ package be.ucll.dentravak.model;
 
 import java.util.List;
 
-public class Sandwich {
+public class Lunch {
     private String name;
     private List<String> ingredients;
     private double price;
 
-    public Sandwich(String name, List<String> ingredients, double price) {
+    public Lunch(String name, List<String> ingredients, double price) {
         this.name = name;
         this.ingredients = ingredients;
         this.price = price;
