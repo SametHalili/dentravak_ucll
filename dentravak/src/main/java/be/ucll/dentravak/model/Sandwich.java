@@ -1,5 +1,6 @@
 package be.ucll.dentravak.model;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -9,9 +10,9 @@ public class Sandwich {
     private UUID id;
     private String name;
     private String ingredients;
-    private double price;
+    private BigDecimal price;
 
-    public Sandwich(UUID id, String name, String ingredients, double price) {
+    public Sandwich(UUID id, String name, String ingredients, BigDecimal price) {
         this.name = name;
         this.ingredients = ingredients;
         this.price = price;
@@ -43,11 +44,11 @@ public class Sandwich {
         this.ingredients = ingredients;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -55,7 +56,7 @@ public class Sandwich {
         private UUID id;
         private String name;
         private String ingredients;
-        private double price;
+        private BigDecimal price;
 
         private LunchBuilder() {}
 
@@ -66,7 +67,7 @@ public class Sandwich {
                         .setId(UUID.randomUUID())
                         .setName("Sandwich " + i)
                         .setIngredients("bread, cheese")
-                        .setPrice(i).build());
+                        .setPrice(BigDecimal.valueOf(i)).build());
             }
             return lunches;
         }
@@ -86,7 +87,7 @@ public class Sandwich {
             return this;
         }
 
-        public LunchBuilder setPrice(double price) {
+        public LunchBuilder setPrice(BigDecimal price) {
             this.price = price;
             return this;
         }
