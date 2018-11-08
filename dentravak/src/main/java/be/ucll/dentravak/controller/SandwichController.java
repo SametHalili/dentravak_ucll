@@ -6,22 +6,18 @@ import java.util.List;
 import java.util.UUID;
 
 import be.ucll.dentravak.model.Sandwich;
+import be.ucll.dentravak.repository.SandwichRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class SandwichController {
+    @Autowired
+    private SandwichRepository sandwichRepository;
+
     @RequestMapping("/lunches")
     public List<Sandwich> getLunches() {
-        return Arrays.asList(new Sandwich.SandwichBuilder()
-                                    .withId(UUID.randomUUID())
-                                    .withName("Gezond")
-                                    .withIngredients("tomaat, sla")
-                                    .withPrice(BigDecimal.valueOf(4.10)).build(),
-                            new Sandwich.SandwichBuilder()
-                                    .withId(UUID.randomUUID())
-                                    .withName("mozzarella")
-                                    .withIngredients("mozzarella, tomaat")
-                                    .withPrice(BigDecimal.valueOf(4.50)).build());
+        return sandwichRepository.getAll();
     }
 }
