@@ -1,12 +1,19 @@
 package be.ucll.dentravak.model;
 
+import org.springframework.data.annotation.Id;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
+@Entity
 public class Sandwich {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     private String name;
     private String ingredients;
@@ -52,53 +59,35 @@ public class Sandwich {
         this.price = price;
     }
 
-    public static class LunchBuilder {
-        private UUID id;
-        private String name;
-        private String ingredients;
-        private BigDecimal price;
+    public static class SandwichBuilder {
+        private Sandwich sandwich;
 
-        private LunchBuilder() {}
-
-        public static List<Sandwich> getListOfRandomLunches(int amountOfLunches) {
-            List<Sandwich> lunches = new ArrayList<>();
-            for(int i = 0; i < amountOfLunches; i++) {
-                lunches.add(new Sandwich.LunchBuilder()
-                        .setId(UUID.randomUUID())
-                        .setName("Sandwich " + i)
-                        .setIngredients("bread, cheese")
-                        .setPrice(BigDecimal.valueOf(i)).build());
-            }
-            return lunches;
+        public SandwichBuilder() {
+            sandwich = new Sandwich();
         }
 
-        public LunchBuilder setId(UUID id) {
-            this.id = id;
+        public SandwichBuilder withId(UUID id) {
+            sandwich.setId(id);
             return this;
         }
 
-        public LunchBuilder setName(String name) {
-            this.name = name;
+        public SandwichBuilder withName(String name) {
+            sandwich.setName(name);
             return this;
         }
 
-        public LunchBuilder setIngredients(String ingredients) {
-            this.ingredients = ingredients;
+        public SandwichBuilder withIngredients(String ingredients) {
+            sandwich.setIngredients(ingredients);
             return this;
         }
 
-        public LunchBuilder setPrice(BigDecimal price) {
-            this.price = price;
+        public SandwichBuilder withPrice(BigDecimal price) {
+            sandwich.setPrice(price);
             return this;
         }
 
         public Sandwich build() {
-            Sandwich lunch = new Sandwich();
-            lunch.setId(this.id);
-            lunch.setName(this.name);
-            lunch.setIngredients(this.ingredients);
-            lunch.setPrice(this.price);
-            return lunch;
+            return sandwich;
         }
     }
 }
