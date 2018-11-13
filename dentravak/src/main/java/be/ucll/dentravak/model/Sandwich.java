@@ -5,8 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -62,10 +60,10 @@ public class Sandwich {
         private Sandwich sandwich;
 
         public SandwichBuilder() {
-            sandwich = new Sandwich();  
+            sandwich = new Sandwich();
         }
 
-        public static SandwichBuilder SandwichBuilder() {
+        public static SandwichBuilder makeSandwich() {
             return new SandwichBuilder();
         }
 
