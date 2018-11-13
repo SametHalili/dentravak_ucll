@@ -25,14 +25,14 @@ public class OrderController {
         orderRepository.save(order);
     }
 
-    @RequestMapping(value = "/sandwiches/{id}", method = RequestMethod.PUT)
-    public void updateSandwich(@PathVariable("id") UUID id, @RequestBody Order updatedSandwich) {
+    @RequestMapping(value = "/orders/{id}", method = RequestMethod.PUT)
+    public void updateOrder(@PathVariable("id") UUID id, @RequestBody Order updatedSandwich) {
         if(orderRepository.existsById(id) && updatedSandwich.getId().equals(id))
             orderRepository.save(updatedSandwich);
     }
 
-    @RequestMapping(value = "/sandwiches/{id}", method = RequestMethod.DELETE)
-    public void deleteSandwich(@PathVariable("id") UUID id) {
+    @RequestMapping(value = "/orders/{id}", method = RequestMethod.DELETE)
+    public void deleteOrder(@PathVariable("id") UUID id) {
         if(orderRepository.existsById(id)) orderRepository.delete(orderRepository.findById(id).get());
     }
 }
