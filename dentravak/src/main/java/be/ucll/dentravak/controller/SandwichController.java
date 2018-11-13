@@ -18,7 +18,7 @@ public class SandwichController {
     @Autowired
     private SandwichRepository sandwichRepository;
 
-    @RequestMapping("/lunches")
+    @RequestMapping("/sandwiches")
     public List<Sandwich> getLunches() {
         return sandwichRepository.findAll();
     }

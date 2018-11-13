@@ -62,8 +62,8 @@ public class Sandwich {
     public static class SandwichBuilder {
         private Sandwich sandwich;
 
-        public SandwichBuilder() {
-            sandwich = new Sandwich();
+        public static SandwichBuilder SandwichBuilder() {
+            return new SandwichBuilder();
         }
 
         public SandwichBuilder withId(UUID id) {
