@@ -20,7 +20,7 @@ public class Application {
     @Bean
     public CommandLineRunner commandLineRunner(SandwichRepository sandwichRepository) {
         return args -> {
-            Sandwich sandwich = Sandwich.SandwichBuilder.SandwichBuilder().withId(UUID.randomUUID()).withName("Bla").withIngredients("bla, bla").withPrice(BigDecimal.valueOf(5.00)).build();
+            Sandwich sandwich = Sandwich.SandwichBuilder.makeSandwich().withId(UUID.randomUUID()).withName("Bla").withIngredients("bla, bla").withPrice(BigDecimal.valueOf(5.00)).build();
             sandwichRepository.save(sandwich);
         };
     }
