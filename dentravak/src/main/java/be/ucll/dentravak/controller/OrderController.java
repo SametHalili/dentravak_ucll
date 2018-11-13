@@ -20,6 +20,11 @@ public class OrderController {
         return orderRepository.findAll();
     }
 
+    @RequestMapping(value = "/orders/{id}", method = RequestMethod.GET)
+    public Order getOrder(@PathVariable("id") UUID id) {
+        return orderRepository.findById(id).get();
+    }
+
     @RequestMapping(value = "/orders", method = RequestMethod.POST)
     public void addOrder(@RequestBody Order order) {
         orderRepository.save(order);
