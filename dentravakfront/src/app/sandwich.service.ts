@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Order } from './order'
+import { Sandwich } from './sandwich'
 import { MessageService } from './message.service'
 import { Observable, of } from 'rxjs'
 import { catchError, map, tap } from 'rxjs/operators'
@@ -13,7 +13,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 
-export class OrderService {
+export class SandwichService {
   private url = 'http://localhost:8080/lunches'
 
   constructor(
@@ -23,11 +23,11 @@ export class OrderService {
   }
 
   /* GET lunches */
-  getLunches (): Observable<Order[]> {
+  getSandwiches (): Observable<Sandwich[]> {
     const url = `${this.url}`;
-    return this.http.get<Order[]>(url)
+    return this.http.get<Sandwich[]>(url)
     .pipe(
-      catchError(this.handleError('getLunches', []))
+      catchError(this.handleError('getSandwiches', []))
     );
   }
 
@@ -46,6 +46,6 @@ export class OrderService {
   }
   // dit was alleen voor tests, negeren aub
   private log(message: string) {
-    this.messageService.add('OrderService: ' + message);
+    this.messageService.add('SandwichService: ' + message);
   }
 }

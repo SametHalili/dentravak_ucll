@@ -4,12 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { OrderComponent } from './order/order.component';
+import { SandwichComponent } from './sandwich/sandwich.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    OrderComponent,
+    SandwichComponent,
   ],
   imports: [
     BrowserModule,

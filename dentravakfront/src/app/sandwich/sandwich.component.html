@@ -1,0 +1,14 @@
+<div class="row">
+  <h2 class="header">Sandwiches</h2>
+  <div class="col s6" *ngFor="let sandwich of sandwiches">
+    <div class="card horizontal">
+      <div class="card-stacked">
+        <div class="card-content">
+          <h5>Sandwich: {{ sandwich.name }}</h5>
+          <p>Ingrediënten: {{ sandwich.ingredients }}</p>
+          <p>Prijs: {{ sandwich.price }} €</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

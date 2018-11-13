@@ -1,4 +1,4 @@
-export class Order {
+export class Sandwich {
     name: string;
     id: string;
     ingredients: string[];
