@@ -14,7 +14,7 @@ const httpOptions = {
 })
 
 export class SandwichService {
-  private url = 'http://localhost:8080/lunches'
+  private url = 'http://localhost:8080/sandwiches'
 
   constructor(
     private http: HttpClient,
