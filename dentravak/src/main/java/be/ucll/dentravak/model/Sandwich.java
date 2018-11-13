@@ -1,10 +1,9 @@
 package be.ucll.dentravak.model;
 
-import org.springframework.data.annotation.Id;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +60,10 @@ public class Sandwich {
 
     public static class SandwichBuilder {
         private Sandwich sandwich;
+
+        public SandwichBuilder() {
+            sandwich = new Sandwich();  
+        }
 
         public static SandwichBuilder SandwichBuilder() {
             return new SandwichBuilder();
