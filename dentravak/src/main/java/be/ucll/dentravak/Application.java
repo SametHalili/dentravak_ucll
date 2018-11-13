@@ -1,6 +1,8 @@
 package be.ucll.dentravak;
 
+import be.ucll.dentravak.model.Order;
 import be.ucll.dentravak.model.Sandwich;
+import be.ucll.dentravak.repository.OrderRepository;
 import be.ucll.dentravak.repository.SandwichRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -18,10 +20,13 @@ public class Application {
     }
 
     @Bean
-    public CommandLineRunner commandLineRunner(SandwichRepository sandwichRepository) {
+    public CommandLineRunner commandLineRunner(SandwichRepository sandwichRepository, OrderRepository orderRepository) {
         return args -> {
-            Sandwich sandwich = Sandwich.SandwichBuilder.makeSandwich().withId(UUID.randomUUID()).withName("Bla").withIngredients("bla, bla").withPrice(BigDecimal.valueOf(5.00)).build();
+            Sandwich sandwich = Sandwich.SandwichBuilder.makeSandwich().withName("Bla").withIngredients("bla, bla").withPrice(BigDecimal.valueOf(5.00)).build();
             sandwichRepository.save(sandwich);
+
+            Order order = Order.OrderBuilder.buildOrder().withBreadType("bruin").withSandwich(sandwich).build();
+            orderRepository.save(order);
         };
     }
 }

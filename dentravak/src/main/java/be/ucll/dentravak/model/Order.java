@@ -1,25 +1,23 @@
 package be.ucll.dentravak.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.UUID;
 
-@Entity
+@Entity(name = "sandwich_order")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     private String breadType;
-    private UUID sandwichId;
+    @OneToOne
+    private Sandwich sandwich;
     
     public Order () {}
 
-    public Order(UUID id, String breadType, UUID sandwichId) {
+    public Order(UUID id, String breadType, Sandwich sandwich) {
         this.id = id;
         this.breadType = breadType;
-        this.sandwichId = sandwichId;
+        this.sandwich = sandwich;
     }
 
     public UUID getId() {
@@ -38,18 +36,22 @@ public class Order {
         this.breadType = breadType;
     }
 
-    public UUID getSandwichId() {
-        return sandwichId;
+    public Sandwich getSandwich() {
+        return sandwich;
     }
 
-    public void setSandwichId(UUID sandwichId) {
-        this.sandwichId = sandwichId;
+    public void setSandwich(Sandwich sandwich) {
+        this.sandwich = sandwich;
     }
 
     public static class OrderBuilder {
         private UUID id;
         private String breadType;
-        private UUID sandwichId;
+        private Sandwich sandwichId;
+
+        public static OrderBuilder buildOrder() {
+            return new OrderBuilder();
+        }
 
         public OrderBuilder withId(UUID id) {
             this.id = id;
@@ -61,7 +63,7 @@ public class Order {
             return this;
         }
         
-        public OrderBuilder withSandwichId(UUID sandwichId) {
+        public OrderBuilder withSandwich(Sandwich sandwichId) {
             this.sandwichId = sandwichId;
             return this;
         }
@@ -70,7 +72,7 @@ public class Order {
             Order order = new Order();
             order.setId(this.id);
             order.setBreadType(this.breadType);
-            order.setSandwichId(this.sandwichId);
+            order.setSandwich(this.sandwichId);
             return order;
         }
     }
