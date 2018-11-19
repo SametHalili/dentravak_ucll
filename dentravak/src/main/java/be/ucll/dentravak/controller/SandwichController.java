@@ -22,6 +22,11 @@ public class SandwichController {
         return sandwichRepository.findAll();
     }
 
+    @RequestMapping("/sandwiches/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Sandwich getSandwiches(@PathVariable("id") UUID id) {
+        return sandwichRepository.findById(id).get();
+    }
 
     @RequestMapping(value = "/sandwiches", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
