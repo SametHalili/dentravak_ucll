@@ -5,15 +5,24 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { SandwichComponent } from './sandwich/sandwich.component';
+import { ShowSandwichComponent } from './show-sandwich/show-sandwich.component';
+import { AppRoutingModule } from './app-routing.module';
+import { NewSandwichComponent } from './new-sandwich/new-sandwich.component';
+import { OrderComponent } from './order/order.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SandwichComponent,
+    ShowSandwichComponent,
+    NewSandwichComponent,
+    OrderComponent,
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

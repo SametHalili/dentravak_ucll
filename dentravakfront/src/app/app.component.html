@@ -1,4 +1,12 @@
+<nav>
+  <div class="nav-wrapper">
+    <a class="brand-logo">Dentravak</a>
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li><a routerLink="sandwiches">Sandwiches</a></li>
+      <li><a routerLink="orders">Orders</a></li>
+    </ul>
+  </div>
+</nav>
 <div class="container">
-  <h1>Dentravak</h1>
-  <app-order></app-order>
+  <router-outlet></router-outlet>
 </div>

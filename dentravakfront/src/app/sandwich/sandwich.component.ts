@@ -11,19 +11,23 @@ import { timer } from 'rxjs'
 export class SandwichComponent implements OnInit {
   sandwiches: Sandwich[];
 
-  constructor(private lunchService: SandwichService) { }
+  constructor(private sandwichService: SandwichService) { }
 
   ngOnInit() {
-    this.getLunches();
+    this.getSandwiches();
   }
 
-  getLunches(): void {
+  getSandwiches(): void {
     timer(0, 2500)
-      .subscribe(() => this.lunchService.getSandwiches()
+      .subscribe(() => this.sandwichService.getSandwiches()
         .subscribe(
           sandwiches => this.sandwiches = sandwiches,
           err => console.error(err),
           () => console.log('done loading json')));
   }
 
+  deleteSandwich(id: string): void {
+    this.sandwichService.deleteSandwich(id)
+      .subscribe(() => console.log("deleted"));
+  }
 }

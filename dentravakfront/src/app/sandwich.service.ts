@@ -26,9 +26,41 @@ export class SandwichService {
   getSandwiches (): Observable<Sandwich[]> {
     const url = `${this.url}`;
     return this.http.get<Sandwich[]>(url)
-    .pipe(
-      catchError(this.handleError('getSandwiches', []))
-    );
+      .pipe(
+        catchError(this.handleError('getSandwiches', []))
+      );
+  }
+
+  getSandwich (id: string): Observable<Sandwich> {
+    const url = `${this.url}/${id}`;
+    return this.http.get<Sandwich>(url)
+      .pipe(
+        catchError(this.handleError<Sandwich>(`sandwich id= ${id}`))
+      );
+  }
+
+  addSandwich(sandwich: Sandwich): Observable<Sandwich> {
+    const url = `${this.url}`;
+    return this.http.post<Sandwich>(url, sandwich, httpOptions)
+      .pipe(
+        catchError(this.handleError('addSandwiches', sandwich))
+      );
+  }
+
+  updateSandwich (sandwich: Sandwich): Observable<any> {
+    const url = `${this.url}/${sandwich.id}`
+    return this.http.put(url, sandwich, httpOptions)
+      .pipe(
+        catchError(this.handleError<any>('updateSandwich'))
+      );
+  }
+
+  deleteSandwich (id: string): Observable<any> {
+    const url = `${this.url}/${id}`;
+    return this.http.delete<any>(url)
+      .pipe(
+        catchError(this.handleError<any>(`sandwich id= ${id}`))
+      );
   }
 
   private handleError<T> (operation = 'operation', result?: T) {

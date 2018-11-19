@@ -8,6 +8,9 @@
           <p>Ingrediënten: {{ sandwich.ingredients }}</p>
           <p>Prijs: {{ sandwich.price }} €</p>
         </div>
+        <div class="card-action">
+          <a routerLink="/sandwich/{{ sandwich.id }}">Sandwich aanpassen</a>
+        </div>
       </div>
     </div>
   </div>

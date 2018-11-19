@@ -1,0 +1,22 @@
+<div *ngIf="sandwich">
+  <h2>{{ sandwich.name }} details</h2>
+  <p>Je kan de sandwich aanpassen</p>
+  <div>
+    <label>Naam: 
+      <input [(ngModel)]="sandwich.name" placeholder="{{ sandwich.name }}"/>
+    </label>
+    <label>Ingrediënten:
+        <input [(ngModel)]="sandwich.ingredients" placeholder="{{ sandwich.ingredients }}"/>
+    </label>
+    <label>Prijs:
+        <input [(ngModel)]="sandwich.price" placeholder="{{ sandwich.price }}"/>
+    </label>
+  </div>
+  <button class="btn waves-effect waves-light"(click)="goBack()">
+      <i class="material-icons left">keyboard_backspace</i>
+      Go back
+    </button>
+    <button class="btn waves-effect waves-light"(click)="save()"> Save
+      <i class="material-icons right">send</i>
+    </button>
+</div>
