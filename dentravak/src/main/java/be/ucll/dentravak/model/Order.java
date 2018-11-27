@@ -1,5 +1,6 @@
 package be.ucll.dentravak.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -18,6 +19,7 @@ public class Order {
     private BigDecimal price;
     private String mobilePhoneNumber;
     @CreationTimestamp
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime creationDate;
     
     public Order () {}
