@@ -30,14 +30,17 @@ public class SandwichController {
 
     @RequestMapping(value = "/sandwiches", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public void addSandwich(@RequestBody Sandwich newSandwich) {
+    public Sandwich addSandwich(@RequestBody Sandwich newSandwich) {
         sandwichRepository.save(newSandwich);
+        return newSandwich;
     }
 
     @RequestMapping(value = "/sandwiches/{id}", method = RequestMethod.PUT)
-    public void updateSandwich(@PathVariable("id") UUID id, @RequestBody Sandwich updatedSandwich) {
+    public Sandwich updateSandwich(@PathVariable("id") UUID id, @RequestBody Sandwich updatedSandwich) {
         if(sandwichRepository.existsById(id) && updatedSandwich.getId().equals(id))
             sandwichRepository.save(updatedSandwich);
+
+        return updatedSandwich;
     }
 
     @RequestMapping(value = "/sandwiches/{id}", method = RequestMethod.DELETE)

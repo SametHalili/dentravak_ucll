@@ -3,6 +3,7 @@ package be.ucll.dentravak.model;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -11,21 +12,24 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
+    private UUID sandwichId;
+    private String name;
     private String breadType;
-    @OneToOne
-    private Sandwich sandwich;
-    private String mobilePhone;
+    private BigDecimal price;
+    private String mobilePhoneNumber;
     @CreationTimestamp
-    private LocalDateTime dateTime;
+    private LocalDateTime creationDate;
     
     public Order () {}
 
-    public Order(UUID id, String breadType, Sandwich sandwich, String mobilePhone, LocalDateTime dateTime) {
+    public Order(UUID id, UUID sandwichId, String name, String breadType, BigDecimal price, String mobilePhoneNumber, LocalDateTime creationDate) {
         this.id = id;
         this.breadType = breadType;
-        this.sandwich = sandwich;
-        this.mobilePhone = mobilePhone;
-        this.dateTime = dateTime;
+        this.sandwichId = sandwichId;
+        this.price = price;
+        this.name = name;
+        this.mobilePhoneNumber = mobilePhoneNumber;
+        this.creationDate = creationDate;
     }
 
     public UUID getId() {
@@ -44,36 +48,54 @@ public class Order {
         this.breadType = breadType;
     }
 
-    public Sandwich getSandwich() {
-        return sandwich;
+    public UUID getSandwichId() {
+        return sandwichId;
     }
 
-    public void setSandwich(Sandwich sandwich) {
-        this.sandwich = sandwich;
+    public void setSandwichId(UUID sandwichId) {
+        this.sandwichId = sandwichId;
     }
 
-    public String getMobilePhone() {
-        return mobilePhone;
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public void setMobilePhone(String mobilePhone) {
-        this.mobilePhone = mobilePhone;
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
+    public String getName() {
+        return name;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getMobilePhoneNumber() {
+        return mobilePhoneNumber;
+    }
+
+    public void setMobilePhoneNumber(String mobilePhoneNumber) {
+        this.mobilePhoneNumber = mobilePhoneNumber;
+    }
+
+    public LocalDateTime getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
     }
 
     public static class OrderBuilder {
         private UUID id;
         private String breadType;
-        private Sandwich sandwichId;
+        private UUID sandwichId;
+        private String name;
+        private BigDecimal price;
         private String mobilePhone;
-        private LocalDateTime dateTime;
+        private LocalDateTime creationDate;
 
         public static OrderBuilder buildOrder() {
             return new OrderBuilder();
@@ -88,8 +110,18 @@ public class Order {
             this.breadType = breadType;
             return this;
         }
+
+        public OrderBuilder withPrice(BigDecimal price) {
+            this.price = price;
+            return this;
+        }
+
+        public OrderBuilder withName(String name) {
+            this.name = name;
+            return this;
+        }
         
-        public OrderBuilder withSandwich(Sandwich sandwichId) {
+        public OrderBuilder withSandwich(UUID sandwichId) {
             this.sandwichId = sandwichId;
             return this;
         }
@@ -99,8 +131,8 @@ public class Order {
             return this;
         }
 
-        public OrderBuilder withDateTime(LocalDateTime dateTime) {
-            this.dateTime = dateTime;
+        public OrderBuilder withDateTime(LocalDateTime creationDate) {
+            this.creationDate = creationDate;
             return this;
         }
 
@@ -108,9 +140,11 @@ public class Order {
             Order order = new Order();
             order.setId(this.id);
             order.setBreadType(this.breadType);
-            order.setSandwich(this.sandwichId);
-            order.setMobilePhone(this.mobilePhone);
-            order.setDateTime(this.dateTime);
+            order.setSandwichId(this.sandwichId);
+            order.setName(this.name);
+            order.setPrice(this.price);
+            order.setMobilePhoneNumber(this.mobilePhone);
+            order.setCreationDate(this.creationDate);
             return order;
         }
     }
