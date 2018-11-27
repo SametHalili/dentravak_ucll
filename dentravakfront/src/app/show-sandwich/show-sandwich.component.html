@@ -1,22 +1,42 @@
-<div *ngIf="sandwich">
-  <h2>{{ sandwich.name }} details</h2>
-  <p>Je kan de sandwich aanpassen</p>
-  <div>
-    <label>Naam: 
-      <input [(ngModel)]="sandwich.name" placeholder="{{ sandwich.name }}"/>
-    </label>
-    <label>Ingrediënten:
-        <input [(ngModel)]="sandwich.ingredients" placeholder="{{ sandwich.ingredients }}"/>
-    </label>
-    <label>Prijs:
-        <input [(ngModel)]="sandwich.price" placeholder="{{ sandwich.price }}"/>
-    </label>
-  </div>
-  <button class="btn waves-effect waves-light"(click)="goBack()">
-      <i class="material-icons left">keyboard_backspace</i>
-      Go back
-    </button>
-    <button class="btn waves-effect waves-light"(click)="save()"> Save
-      <i class="material-icons right">send</i>
-    </button>
+<div class="container">
+    <h1>Sandwich details</h1>
+    <p>Je kan de sandwich aanpassen</p>
+    <form (ngSubmit)="save()" #newsandwich="ngForm"> 
+      <div class="form-group">
+        <label for="name">Naam</label>
+        <input type="text" class="form-control" id="name" required
+        [(ngModel)]="sandwich.name" name="name"
+        #name="ngModel" placeholder="{{ sandwich.name }}">
+        <div [hidden]="name.valid || name.pristine"
+        class="alert alert-danger">
+        Naam is nodig
+        </div>
+      </div>
+ 
+      <div class="form-group">
+        <label for="ingredients">Ingrediënten</label>
+        <input type="text" class="form-control" id="ingredients" required
+        [(ngModel)]="sandwich.ingredients" name="ingredients"
+        #ingredients="ngModel" placeholder="{{ sandwich.ingredients }}">
+        <div [hidden]="ingredients.valid || ingredients.pristine"
+        class="alert alert-danger">
+        Ingrediënten zijn nodig
+        </div>
+      </div>
+
+      <div class="form-group">
+          <label for="price">Prijs</label>
+          <input type="number" class="form-control" id="price" required
+          [(ngModel)]="sandwich.price" name="price"
+          #price= "ngModel" placeholder="{{ sandwich.price }}">
+          <div [hidden]="price.valid || price.pristine"
+          class="alert alert-danger">
+          Prijs is nodig
+          </div>
+      </div>
+
+      <button class="btn btn-success" href="/sandwiches">Go back</button>
+      <button type="submit" class="btn btn-success" [disabled]="!newsandwich.form.valid">Submit</button>
+ 
+    </form>
 </div>

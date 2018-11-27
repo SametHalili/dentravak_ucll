@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common'
 import { ActivatedRoute } from '@angular/router'
 import { SandwichService } from '../sandwich.service'
@@ -10,8 +10,7 @@ import { Sandwich } from '../sandwich';
   styleUrls: ['./new-sandwich.component.css']
 })
 export class NewSandwichComponent implements OnInit {
-  sandwich: Sandwich;
-  submitted = false;
+  sandwich = new Sandwich();
 
   constructor(
     private route: ActivatedRoute,
@@ -20,6 +19,7 @@ export class NewSandwichComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    
   }
 
   goBack(): void {
@@ -30,5 +30,4 @@ export class NewSandwichComponent implements OnInit {
     this.sandwichService.addSandwich(this.sandwich)
       .subscribe(() => this.goBack());
   }
-
 }

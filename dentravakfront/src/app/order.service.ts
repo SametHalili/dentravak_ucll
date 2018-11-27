@@ -31,6 +31,14 @@ export class OrderService {
       );
   }
 
+  addOrder(order: Order): Observable<Order> {
+    const url = `${this.url}`;
+    return this.http.post<Order>(url, order, httpOptions)
+      .pipe(
+        catchError(this.handleError('addOrder', order))
+      );
+  }
+
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
 

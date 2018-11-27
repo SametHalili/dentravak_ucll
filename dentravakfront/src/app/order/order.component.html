@@ -1,19 +1,22 @@
-<div class="row">
-  <h2 class="header">Orders</h2>
-  <div class="col s6" *ngFor="let order of orders">
-    <div class="card horizontal">
-      <div class="card-stacked">
-        <div class="card-content">
-          <h5>Sandwich: {{ order.sandwich.name }}</h5>
-          <p>Breadtype: {{ order.breadType }}</p>
-          <p>Prijs: {{ order.sandwich.price }} €</p>
-          <p>Mobile phone: {{ order.mobilePhone }}</p>
-          <p>Date order: //need to find fix {{ order.date }}</p>
-        </div>
-        <div class="card-action">
-          
-        </div>
-      </div>
-    </div>
-  </div>
+<div id="headerComp">
+    <h2>Orders</h2>
 </div>
+<div class="row">
+    <div class="col s6" *ngFor="let order of orders">
+        <div class="card" style="width: 500px;">
+          <div class="card-body">
+            <h5 class="card-title">Order naam: {{ order.name }}</h5>
+            <div class="card-text">
+                <p>Breadtype: {{ order.breadType }}</p>
+                <p>Prijs: {{ order.price }} €</p>
+                <p>Mobile phone: {{ order.mobilePhoneNumber }}</p>
+                <p>Date order: {{ order.creationDate }}</p>
+            </div>
+            <div>
+
+            </div>
+          </div>
+        </div>
+    </div>
+    
+  </div>
