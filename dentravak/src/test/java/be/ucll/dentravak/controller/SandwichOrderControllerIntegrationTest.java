@@ -6,7 +6,9 @@ import be.ucll.dentravak.model.Order;
 import be.ucll.dentravak.model.SandwichTestBuilder;
 import be.ucll.dentravak.repository.OrderRepository;
 import be.ucll.dentravak.repository.SandwichRepository;
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -53,6 +55,12 @@ public class SandwichOrderControllerIntegrationTest extends AbstractControllerIn
 
     @Test
     public void testGetSandwichOrders_WithOrdersSaved_ReturnsListWithOrders() throws JSONException {
-        throw new RuntimeException("Implement this test and then the production code");
+        Order order = aSandwichOrder().forSandwich(savedSandwich).withBreadType(Order.BreadType.BOTERHAMMEKES).withMobilePhoneNumber("0487/123456").build();
+        String actualOrder = httpPost("/orders", order);
+        String actualOrders = httpGet("/orders");
+
+        String expectedOrders = "[" + actualOrder + "]";
+
+        assertThatJson(actualOrders).isEqualTo(expectedOrders);
     }
 }

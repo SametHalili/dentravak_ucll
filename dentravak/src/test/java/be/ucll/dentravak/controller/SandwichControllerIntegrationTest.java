@@ -3,6 +3,7 @@ package be.ucll.dentravak.controller;
 import be.ucll.dentravak.Application;
 import be.ucll.dentravak.model.Sandwich;
 import be.ucll.dentravak.repository.SandwichRepository;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Before;
@@ -70,14 +71,15 @@ public class SandwichControllerIntegrationTest extends AbstractControllerIntegra
     public void testGetSandwiches_WithSavedSandwiches_ListWithSavedSandwich() throws JSONException {
         Sandwich sandwich = aSandwich().withName("Gezond").withIngredients("Sla").withPrice(3.0).build();
 
-        String sandwichJson = httpPost("/sandwiches/", sandwich);
+        httpPost("/sandwiches/", sandwich);
 
         String actualSandwiches = httpGet("/sandwiches");
 
-        JSONObject jsonSandwichObject = new JSONObject(actualSandwiches);
+        JSONArray jsonSandwichArray = new JSONArray(actualSandwiches);
+        JSONObject jsonSandwichObject = jsonSandwichArray.getJSONObject(0);
         String id = jsonSandwichObject.getString("id");
 
-        String expectedJson = "{\"id\":\"" + id + "\",\"name\":\"Gezond\",\"ingredients\":\"Sla, tomaat\",\"price\":3}";
+        String expectedJson = "[{\"id\":\"" + id + "\",\"name\":\"Gezond\",\"ingredients\":\"Sla\",\"price\":3.0}]";
 
         assertThatJson(actualSandwiches).isEqualTo(expectedJson);
     }
