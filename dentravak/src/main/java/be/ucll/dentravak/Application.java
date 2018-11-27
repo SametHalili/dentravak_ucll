@@ -24,7 +24,7 @@ public class Application {
             Sandwich sandwich = Sandwich.SandwichBuilder.makeSandwich().withName("Bla").withIngredients("bla, bla").withPrice(BigDecimal.valueOf(5.00)).build();
             sandwichRepository.save(sandwich);
 
-            Order order = Order.OrderBuilder.buildOrder().withBreadType("bruin").withPrice(BigDecimal.valueOf(5.0)).withSandwich(sandwich.getId()).withName("Bla").withMobilePhone("0494265426").build();
+            Order order = Order.OrderBuilder.buildOrder().withBreadType(Order.BreadType.BOTERHAMMEKES).withPrice(BigDecimal.valueOf(5.0)).withSandwich(sandwich.getId()).withName("Bla").withMobilePhone("0494265426").build();
             orderRepository.save(order);
         };
     }

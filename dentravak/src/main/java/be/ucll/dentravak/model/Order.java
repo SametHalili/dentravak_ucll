@@ -14,15 +14,21 @@ public class Order {
     private UUID id;
     private UUID sandwichId;
     private String name;
-    private String breadType;
+    private BreadType breadType;
     private BigDecimal price;
     private String mobilePhoneNumber;
     @CreationTimestamp
     private LocalDateTime creationDate;
-    
+
+    public enum BreadType {
+        BOTERHAMMEKES,
+        TURKS_BROOD,
+        WRAP
+    }
+
     public Order () {}
 
-    public Order(UUID id, UUID sandwichId, String name, String breadType, BigDecimal price, String mobilePhoneNumber, LocalDateTime creationDate) {
+    public Order(UUID id, UUID sandwichId, String name, BreadType breadType, BigDecimal price, String mobilePhoneNumber, LocalDateTime creationDate) {
         this.id = id;
         this.breadType = breadType;
         this.sandwichId = sandwichId;
@@ -40,11 +46,11 @@ public class Order {
         this.id = id;
     }
 
-    public String getBreadType() {
+    public BreadType getBreadType() {
         return breadType;
     }
 
-    public void setBreadType(String breadType) {
+    public void setBreadType(BreadType breadType) {
         this.breadType = breadType;
     }
 
@@ -90,7 +96,7 @@ public class Order {
 
     public static class OrderBuilder {
         private UUID id;
-        private String breadType;
+        private BreadType breadType;
         private UUID sandwichId;
         private String name;
         private BigDecimal price;
@@ -106,7 +112,7 @@ public class Order {
             return this;
         }
 
-        public OrderBuilder withBreadType(String breadType) {
+        public OrderBuilder withBreadType(BreadType breadType) {
             this.breadType = breadType;
             return this;
         }
