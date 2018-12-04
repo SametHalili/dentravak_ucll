@@ -1,0 +1,48 @@
+<div class="container">
+    <h1>Maak een nieuwe order aan</h1>
+    <form (ngSubmit)="save()"#neworder="ngForm">
+      
+      <div class="form-group">
+        <label for="name">Naam order</label>
+        <input type="text" class="form-control" id="name" required
+        [(ngModel)]="order.name" name="name"
+        #name="ngModel">
+        <div [hidden]="name.valid || name.pristine"
+        class="alert alert-danger">
+        Naam is nodig
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="breadType">Brood type</label>
+        <select class="form-control" id="breadType"
+                required
+                [(ngModel)]="order.breadType" name="breadType"
+                #breadType="ngModel">
+          <option *ngFor="let type of breadTypes" [value]="type">{{type}}</option>
+        </select>
+        <div [hidden]="breadType.valid || breadType.pristine">
+          Brood type is nodig
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="price">Prijs</label>
+        <input class="form-control" id="price" type="text" value="{{ sandwich.price }}"disabled>
+      </div>
+
+      <div class="form-group">
+        <label for="mobilePhoneNumber">Telefoon nummer</label>
+        <input type="tel" class="form-control" id="mobilePhoneNumber" required
+        [(ngModel)]="order.mobilePhoneNumber" name="mobilePhoneNumber"
+        #mobilePhoneNumber="ngModel">
+        <div [hidden]="mobilePhoneNumber.valid || mobilePhoneNumber.pristine"
+        class="alert alert-danger">
+        Telefoon nummer is nodig
+        </div>
+      </div>
+
+      <button class="btn btn-success" href="/sandwiches">Go back</button>
+      <button type="submit" class="btn btn-success" [disabled]="!neworder.form.valid">Submit</button>
+    </form>
+</div>

@@ -1,17 +1,23 @@
+<div id="headerComp">
+    <h2>Sandwiches</h2>
+    <a class="btn btn-primary" routerLink="/newsandwich"> New Sandwich </a>
+</div>
 <div class="row">
-  <h2 class="header">Sandwiches</h2>
   <div class="col s6" *ngFor="let sandwich of sandwiches">
-    <div class="card horizontal">
-      <div class="card-stacked">
-        <div class="card-content">
-          <h5>Sandwich: {{ sandwich.name }}</h5>
-          <p>Ingrediënten: {{ sandwich.ingredients }}</p>
-          <p>Prijs: {{ sandwich.price }} €</p>
-        </div>
-        <div class="card-action">
-          <a routerLink="/sandwich/{{ sandwich.id }}">Sandwich aanpassen</a>
+      <div class="card" style="width: 500px;">
+        <div class="card-body">
+          <h5 class="card-title">Sandwich: {{ sandwich.name }}</h5>
+          <div class="card-text">
+            <p>Ingrediënten: {{ sandwich.ingredients }}</p>
+            <p>Prijs: {{ sandwich.price }} €</p>
+          </div>
+          <div>
+            <a class="btn btn-primary" href="#" routerLink="/sandwich/{{ sandwich.id }}">Sandwich aanpassen</a>
+            <a class="btn btn-primary" href="#" (click)="deleteSandwich(sandwich.id)">Delete sandwich</a>
+            <a class="btn btn-primary" href="#" routerLink="/neworder/{{ sandwich.id }}">Make order</a>
+          </div>
         </div>
       </div>
-    </div>
   </div>
+  
 </div>

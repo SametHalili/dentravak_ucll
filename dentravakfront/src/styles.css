@@ -18,4 +18,18 @@ div.sm-jumbotron{
   {
     background: #ede7f6;
   }
-  
+
+  a:hover 
+  {
+    cursor:pointer;
+  }
+
+  #mainDiv
+  {
+    margin: 50px;
+  }
+
+  #headerComp
+  {
+    margin-bottom: 20px;
+  }
