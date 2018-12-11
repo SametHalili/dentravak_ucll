@@ -8,6 +8,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.math.BigDecimal;
 
@@ -15,17 +19,20 @@ import java.math.BigDecimal;
 public class Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(Application.class);
+        SpringApplication.run(Application.class, args);
     }
 
     @Bean
-    public CommandLineRunner commandLineRunner(SandwichRepository sandwichRepository, OrderRepository orderRepository) {
-        return args -> {
-            Sandwich sandwich = Sandwich.SandwichBuilder.makeSandwich().withName("Bla").withIngredients("bla, bla").withPrice(BigDecimal.valueOf(5.00)).build();
-            sandwichRepository.save(sandwich);
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
 
-            Order order = Order.OrderBuilder.buildOrder().withBreadType(Order.BreadType.BOTERHAMMEKES).withPrice(BigDecimal.valueOf(5.0)).withSandwich(sandwich.getId()).withName("Bla").withMobilePhone("0494265426").build();
-            orderRepository.save(order);
-        };
+    @Configuration
+    public class WebConfig implements WebMvcConfigurer {
+
+        @Override
+        public void addCorsMappings(CorsRegistry registry) {
+            registry.addMapping("/**");
+        }
     }
 }
