@@ -1,10 +1,18 @@
 package be.ucll.dentravak.controller;
 
 import be.ucll.dentravak.model.Sandwich;
+import be.ucll.dentravak.model.SandwichPreferences;
 import be.ucll.dentravak.repository.SandwichRepository;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
 
+import javax.inject.Inject;
+import javax.naming.ServiceUnavailableException;
+import java.net.URI;
+import java.util.Optional;
 import java.util.UUID;
 
 @CrossOrigin(origins = "*")
@@ -12,8 +20,34 @@ import java.util.UUID;
 public class SandwichController {
     private SandwichRepository sandwichRepository;
 
+    @Inject
+    private DiscoveryClient discoveryClient;
+
+    @Inject
+    private SandwichRepository repository;
+
+    @Inject
+    private RestTemplate restTemplate;
+
     public SandwichController(SandwichRepository sandwichRepository) {
         this.sandwichRepository = sandwichRepository;
+    }
+
+    @GetMapping("/getpreferences/{emailAddress}")
+    public SandwichPreferences getPreferences(@PathVariable String emailAddress) throws RestClientException, ServiceUnavailableException {
+        URI service = recommendationServiceUrl()
+                .map(s -> s.resolve("/recommend/" + emailAddress))
+                .orElseThrow(ServiceUnavailableException::new);
+        return restTemplate
+                .getForEntity(service, SandwichPreferences.class)
+                .getBody();
+    }
+
+    public Optional<URI> recommendationServiceUrl() {
+        return discoveryClient.getInstances("recommendation")
+                .stream()
+                .map(si -> si.getUri())
+                .findFirst();
     }
 
     @RequestMapping("/sandwiches")
