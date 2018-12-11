@@ -1,6 +1,4 @@
 spring:
-<<<<<<< HEAD
-=======
   application:
     name: dentravak
   cloud:
@@ -11,7 +9,6 @@ spring:
         healthCheckInterval: 20s
 ---
 spring:
->>>>>>> 76caca6e30da354b353ccac9418353dbe1bb91c6
   profiles: container
   datasource:
     url: jdbc:mysql://${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}?autoReconnect=true&failOverReadOnly=false&maxReconnects=10&allowPublicKeyRetrieval=true&useSSL=false
@@ -23,8 +20,5 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
-<<<<<<< HEAD
       ddl-auto: update
-=======
       ddl-auto: update
->>>>>>> 76caca6e30da354b353ccac9418353dbe1bb91c6
