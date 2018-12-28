@@ -4,6 +4,7 @@ import be.ucll.dentravak.model.Sandwich;
 import be.ucll.dentravak.model.SandwichPreferences;
 import be.ucll.dentravak.repository.SandwichRepository;
 //import org.springframework.cloud.client.discovery.DiscoveryClient;
+import com.google.common.collect.Lists;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -14,8 +15,7 @@ import javax.inject.Inject;
 import javax.naming.ServiceUnavailableException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -55,11 +55,41 @@ public class SandwichController {
         try {
             SandwichPreferences preferences = getPreferences("ronald.dehuysser@ucll.be");
             //TODO: sort allSandwiches by float in preferences
-            Iterable<Sandwich> allSandwiches = sandwichRepository.findAll();
+            ArrayList<Sandwich> allSandwiches = Lists.newArrayList(sandwichRepository.findAll());
+
+            ArrayList<UUID> orderSandwichIds = new ArrayList<>();
+
+            addIdsInOrder(preferences, orderSandwichIds);
+
+            for(int i = 0; i < orderSandwichIds.size(); i++) {
+                for(int j = 0; j < allSandwiches.size(); j++) {
+                    if(orderSandwichIds.get(i).equals(allSandwiches.get(j).getId())) {
+                        Collections.swap(allSandwiches, i, j);
+                    }
+                }
+            }
 
             return allSandwiches;
         } catch (ServiceUnavailableException e) {
             return sandwichRepository.findAll();
+        }
+    }
+
+    private void addIdsInOrder(SandwichPreferences preferences, ArrayList<UUID> sandwichIds) {
+        if(preferences.size() > 1) {
+            float smallestRating = -1;
+            for (UUID key : preferences.keySet()) {
+                float currentRating = preferences.getRatingForSandwich(key);
+                if (smallestRating < currentRating) {
+                    smallestRating = currentRating;
+                    sandwichIds.add(key);
+                    preferences.remove(key);
+                    addIdsInOrder(preferences, sandwichIds);
+                    break;
+                }
+            }
+        } else {
+            sandwichIds.add((UUID) preferences.keySet().toArray()[0]);
         }
     }
 
