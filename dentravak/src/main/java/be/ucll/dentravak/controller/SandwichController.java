@@ -25,9 +25,6 @@ public class SandwichController {
     private DiscoveryClient discoveryClient;
 
     @Inject
-    private SandwichRepository repository;
-
-    @Inject
     private RestTemplate restTemplate;
 
     public SandwichController(SandwichRepository sandwichRepository) {
@@ -37,7 +34,7 @@ public class SandwichController {
     @GetMapping("/getpreferences/{emailAddress}")
     public SandwichPreferences getPreferences(@PathVariable String emailAddress) throws RestClientException, ServiceUnavailableException {
         URI service = recommendationServiceUrl()
-                .map(s -> s.resolve("/recommend/" + emailAddress))
+                .map(s -> s.resolve("/recommendation/recommend/" + emailAddress))
                 .orElseThrow(ServiceUnavailableException::new);
         return restTemplate
                 .getForEntity(service, SandwichPreferences.class)
@@ -56,7 +53,15 @@ public class SandwichController {
     @RequestMapping("/sandwiches")
     @ResponseStatus(HttpStatus.OK)
     public Iterable<Sandwich> getSandwiches() {
-        return sandwichRepository.findAll();
+        try {
+            SandwichPreferences preferences = getPreferences("ronald.dehuysser@ucll.be");
+            //TODO: sort allSandwiches by float in preferences
+            Iterable<Sandwich> allSandwiches = sandwichRepository.findAll();
+
+            return allSandwiches;
+        } catch (ServiceUnavailableException e) {
+            return sandwichRepository.findAll();
+        }
     }
 
     @RequestMapping("/sandwiches/{id}")
