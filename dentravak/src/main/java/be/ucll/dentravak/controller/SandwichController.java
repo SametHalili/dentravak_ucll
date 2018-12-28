@@ -4,6 +4,7 @@ import be.ucll.dentravak.model.Sandwich;
 import be.ucll.dentravak.model.SandwichPreferences;
 import be.ucll.dentravak.repository.SandwichRepository;
 //import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestClientException;
@@ -21,8 +22,8 @@ import java.util.UUID;
 public class SandwichController {
     private SandwichRepository sandwichRepository;
 
-    //@Inject
-    //private DiscoveryClient discoveryClient;
+    @Inject
+    private DiscoveryClient discoveryClient;
 
     @Inject
     private RestTemplate restTemplate;
@@ -42,11 +43,10 @@ public class SandwichController {
     }
 
     public Optional<URI> recommendationServiceUrl() {
-        try {
-            return Optional.of(new URI("http://localhost:8235"));
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
+        return discoveryClient.getInstances("recommendation")
+                .stream()
+                .map(si -> si.getUri())
+                .findFirst();
     }
 
     @RequestMapping("/sandwiches")
