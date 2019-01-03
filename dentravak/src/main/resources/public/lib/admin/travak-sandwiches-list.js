@@ -8,8 +8,8 @@ class DenTravakSandwichesList extends DenTravakAbstractElement {
 
     connectedCallback() {
         super.connectedCallback();
-        fetch('http://localhost:8234/den-travak/sandwiches')
-        //fetch('http://193.191.177.8:10418/den-travak/sandwiches')
+        //fetch('http://localhost:8234/den-travak/sandwiches')
+        fetch('http://193.191.177.8:10418/den-travak/sandwiches')
             .then(resp => resp.json())
             .then(json => this.updateSandwichesList(json));
         this.initEventListeners();
