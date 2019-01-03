@@ -9,6 +9,7 @@ class DenTravakSandwichesList extends DenTravakAbstractElement {
     connectedCallback() {
         super.connectedCallback();
         fetch('http://localhost:8234/den-travak/sandwiches')
+        //fetch('http://193.191.177.8:10418/den-travak/sandwiches')
             .then(resp => resp.json())
             .then(json => this.updateSandwichesList(json));
         this.initEventListeners();
@@ -60,18 +61,22 @@ class DenTravakSandwichesList extends DenTravakAbstractElement {
 
     getSandwichTemplate(sandwich) {
         return `
-            <a class="list-group-item">
-                <button type="button" class="btn btn-primary bmd-btn-fab">
-                    ${sandwich.name.charAt(0)}
-                </button>
-                <div class="bmd-list-group-col">
-                    <p class="list-group-item-heading">${sandwich.name}</p>
-                    <p class="list-group-item-text">${sandwich.ingredients}</p>
-                </div>
-                <div class="dt-sandwich-info">
-                    <p class="list-group-item-text">${sandwich.price}</p>
-                </div>
-            </a>
+        <div class="card">
+            <div class="card-body">
+                <a class="list-group-item">
+                    <button type="button" class="btn btn-primary bmd-btn-fab">
+                        ${sandwich.name.charAt(0)}
+                    </button>
+                    <div class="bmd-list-group-col">
+                        <p class="list-group-item-heading">${sandwich.name}</p>
+                        <p class="list-group-item-text">Ingrediënten: ${sandwich.ingredients}</p>
+                    </div>
+                    <div class="dt-sandwich-info">
+                        <p class="list-group-item-text">Prijs: €${sandwich.price}</p>
+                    </div>
+                </a>
+            </div>
+        </div>
         `;
     }
 }

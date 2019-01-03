@@ -9,6 +9,7 @@ class DenTravakOrderList extends DenTravakAbstractElement {
     connectedCallback() {
         super.connectedCallback();
         fetch('http://localhost:8234/den-travak/orders')
+        //fetch('http://193.191.177.8:10418/den-travak/orders')
             .then(resp => resp.json())
             .then(json => this.updateOrderList(json));
         this.initEventListeners();
@@ -66,18 +67,22 @@ class DenTravakOrderList extends DenTravakAbstractElement {
 
     getOrderTemplate(order) {
         return `
-            <a class="list-group-item">
-                <button type="button" class="btn btn-primary bmd-btn-fab">
-                    ${order.name.charAt(0)}
-                </button>
-                <div class="bmd-list-group-col">
-                    <p class="list-group-item-heading">${order.mobilePhoneNumber}<span class="creationDate">${dateFns.distanceInWordsToNow(order.creationDate)} ago</span></p>
-                    <p class="list-group-item-text">${order.name} - ${order.breadType.toLowerCase()}</p>
-                </div>
-                <div class="dt-order-info">
-                    <p class="list-group-item-text">${order.price}</p>
-                </div>
-            </a>
+        <div class="card">
+            <div class="card-body">
+                <a class="list-group-item">
+                    <button type="button" class="btn btn-primary bmd-btn-fab">
+                        ${order.name.charAt(0)}
+                    </button>
+                    <div class="bmd-list-group-col">
+                        <p class="list-group-item-heading">Telefoon nummer: ${order.mobilePhoneNumber}<span class="creationDate">${dateFns.distanceInWordsToNow(order.creationDate)} ago</span></p>
+                        <p class="list-group-item-text">Bestelling: ${order.name} - ${order.breadType.toLowerCase()}</p>
+                    </div>
+                    <div class="dt-order-info">
+                        <p class="list-group-item-text">Prijs: €${order.price}</p>
+                    </div>
+                </a>
+            </div>
+        </dvi>
         `;
     }
 }
