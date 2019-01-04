@@ -20,35 +20,11 @@
   <body>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script>
-        function download_csv() {        
-            fetch('http://193.191.177.8:10418/den-travak/orders')
-                .then(resp => resp.json())
-                .then(json => receivedJson(json));
-        }
-        function receivedJson(json) {
-            var data = []
-            for(var i = 0; i < json.length; i++) {
-                data.push([json[i].id, json[i].sandwichId,json[i].name, json[i].breadType,json[i].price, json[i].mobilePhoneNumber, json[i].creationDate]);
-            }
-
-            var csv = 'ID,SandwichID,Name,BreadType,Price,MobilePhoneNumber,CreationDate\n';
-            data.forEach(function(row) {
-                csv += row.join(',');
-                csv += "\n";
-            });
-            
-            console.log(csv);
-            var hiddenElement = document.createElement('a');
-            hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
-            hiddenElement.target = '_blank';
-            hiddenElement.download = 'orders.csv';
-            hiddenElement.click();
-        }
+        
     </script>
     
       <div class="container">
           <travak-admin-app></travak-admin-app>
-          <button onclick="download_csv()">Print orders</button>
       </div>
 
     <!-- Optional JavaScript -->

@@ -17,6 +17,7 @@ class DenTravakOrderList extends DenTravakAbstractElement {
 
     initEventListeners() {
         this.byId('edit-sandwiches-btn').addEventListener('click', (e) => this.app().showSandwichList());
+        this.byId('downloadcsv').addEventListener('click', (e) => this.download_csv())
     }
 
     updateOrderList(orders) {
@@ -26,6 +27,30 @@ class DenTravakOrderList extends DenTravakAbstractElement {
             let orderEl = htmlToElement(this.getOrderTemplate(order));
             orderList.appendChild(orderEl);
         });
+    }
+
+
+    download_csv() {        
+        fetch('http://193.191.177.8:10418/den-travak/orders')
+            .then(resp => resp.json())
+            .then(json => {
+                var data = []
+                for(var i = 0; i < json.length; i++) {
+                    data.push([json[i].id, json[i].sandwichId,json[i].name, json[i].breadType,json[i].price, json[i].mobilePhoneNumber, json[i].creationDate]);
+                }
+                var separate = 'sep=,\r\n';
+                var csv = separate + 'ID,SandwichID,Name,BreadType,Price,MobilePhoneNumber,CreationDate\n';
+                data.forEach(function(row) {
+                    csv += row.join(',');
+                    csv += "\n";
+                });
+                var hiddenElement = document.createElement('a');
+                hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+                hiddenElement.target = '_blank';
+                hiddenElement.download = 'orders.csv';
+                hiddenElement.click();
+            });
+            
     }
 
     get template() {
@@ -61,6 +86,9 @@ class DenTravakOrderList extends DenTravakAbstractElement {
                 <ul id="orders" class="list-group">
                 </ul>
                 </div>
+                <button type="button" class="btn btn-primary" id="downloadcsv">
+                Download CSV
+                </button>
             </div>
         `;
     }
