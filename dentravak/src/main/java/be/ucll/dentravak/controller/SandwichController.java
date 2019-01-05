@@ -54,9 +54,9 @@ public class SandwichController {
     public Iterable<Sandwich> getSandwiches() {
         try {
             SandwichPreferences preferences = getPreferences("ronald.dehuysser@ucll.be");
-            //TODO: sort allSandwiches by float in preferences
             ArrayList<Sandwich> allSandwiches = Lists.newArrayList(sandwichRepository.findAll());
-            allSandwiches.sort(Comparator.comparing((Sandwich sandwich) -> preferences.getRatingForSandwich(sandwich.getId())).reversed());
+
+            allSandwiches.sort(Comparator.comparing((Sandwich sandwich) -> preferences.getRatingForSandwich(sandwich.getId()), Comparator.nullsLast(Comparator.naturalOrder())).reversed());
             return allSandwiches;
         } catch (ServiceUnavailableException e) {
             return sandwichRepository.findAll();
