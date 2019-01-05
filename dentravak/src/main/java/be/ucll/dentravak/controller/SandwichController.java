@@ -56,40 +56,11 @@ public class SandwichController {
             SandwichPreferences preferences = getPreferences("ronald.dehuysser@ucll.be");
             //TODO: sort allSandwiches by float in preferences
             ArrayList<Sandwich> allSandwiches = Lists.newArrayList(sandwichRepository.findAll());
-
-            ArrayList<UUID> orderSandwichIds = new ArrayList<>();
-
-            addIdsInOrder(preferences, orderSandwichIds);
-
-            for(int i = 0; i < orderSandwichIds.size(); i++) {
-                for(int j = 0; j < allSandwiches.size(); j++) {
-                    if(orderSandwichIds.get(i).equals(allSandwiches.get(j).getId())) {
-                        Collections.swap(allSandwiches, i, j);
-                    }
-                }
-            }
-
+            allSandwiches.sort(Comparator.comparing((Sandwich o) -> preferences.getRatingForSandwich(o.getId())));
+            
             return allSandwiches;
         } catch (ServiceUnavailableException e) {
             return sandwichRepository.findAll();
-        }
-    }
-
-    private void addIdsInOrder(SandwichPreferences preferences, ArrayList<UUID> sandwichIds) {
-        if(preferences.size() > 1) {
-            float smallestRating = -1;
-            for (UUID key : preferences.keySet()) {
-                float currentRating = preferences.getRatingForSandwich(key);
-                if (smallestRating < currentRating) {
-                    smallestRating = currentRating;
-                    sandwichIds.add(key);
-                    preferences.remove(key);
-                    addIdsInOrder(preferences, sandwichIds);
-                    break;
-                }
-            }
-        } else {
-            sandwichIds.add((UUID) preferences.keySet().toArray()[0]);
         }
     }
 
