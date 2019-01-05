@@ -20,7 +20,17 @@ class DenTravakOrderList extends DenTravakAbstractElement {
         this.byId('downloadcsv').addEventListener('click', (e) => this.download_csv());
     }
 
-    updateOrderList(orders) {
+    updateOrderList(orders, printed) {
+        if(printed) {
+            orders.forEach(order => {
+                order.printed = true;
+            })
+        } 
+        else {
+            orders.forEach(order => {
+                order.printed = false;
+            })
+        }
         let orderList = this.byId('orders');
         orderList.innerHTML = ``;
         orders.forEach(order => {
@@ -49,7 +59,7 @@ class DenTravakOrderList extends DenTravakAbstractElement {
                 hiddenElement.target = '_blank';
                 hiddenElement.download = 'orders.csv';
                 hiddenElement.click();
-                this.updateOrderList(json);
+                this.updateOrderList(json, true);
             });
             
     }
