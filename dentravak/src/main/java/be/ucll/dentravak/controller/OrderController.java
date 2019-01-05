@@ -17,13 +17,7 @@ public class OrderController {
     }
 
     @RequestMapping("/orders")
-    public List<Order> getOrders(@RequestParam(value = "printCSV", defaultValue = "false") boolean printCSV) {
-        if(printCSV == true) {
-            for(Order order: orderRepository.findAll()) {
-                order.setPrinted(true);
-                orderRepository.save(order);
-            }
-        }
+    public List<Order> getOrders() {
         return orderRepository.findAll();
     }
 

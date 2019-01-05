@@ -17,7 +17,6 @@ public class Order {
     private String name;
     private BreadType breadType;
     private BigDecimal price;
-    private boolean printed = false;
     private String mobilePhoneNumber;
     @CreationTimestamp
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
@@ -27,14 +26,6 @@ public class Order {
         BOTERHAMMEKES,
         TURKS_BROOD,
         WRAP
-    }
-
-    public boolean isPrinted() {
-        return printed;
-    }
-
-    public void setPrinted(boolean printed) {
-        this.printed = printed;
     }
 
     public Order () {}

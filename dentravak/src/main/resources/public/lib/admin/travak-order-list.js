@@ -31,7 +31,7 @@ class DenTravakOrderList extends DenTravakAbstractElement {
 
 
     download_csv() {        
-        fetch('http://193.191.177.8:10418/den-travak/orders?printCSV=true')
+        fetch('http://193.191.177.8:10418/den-travak/orders')
             .then(resp => resp.json())
             .then(json => {
                 var data = []
