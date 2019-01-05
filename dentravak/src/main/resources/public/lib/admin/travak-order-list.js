@@ -17,7 +17,7 @@ class DenTravakOrderList extends DenTravakAbstractElement {
 
     initEventListeners() {
         this.byId('edit-sandwiches-btn').addEventListener('click', (e) => this.app().showSandwichList());
-        this.byId('downloadcsv').addEventListener('click', (e) => this.download_csv())
+        this.byId('downloadcsv').addEventListener('click', (e) => this.download_csv());
     }
 
     updateOrderList(orders) {
@@ -31,7 +31,7 @@ class DenTravakOrderList extends DenTravakAbstractElement {
 
 
     download_csv() {        
-        fetch('http://193.191.177.8:10418/den-travak/orders')
+        fetch('http://193.191.177.8:10418/den-travak/orders?printCSV=true')
             .then(resp => resp.json())
             .then(json => {
                 var data = []
@@ -49,6 +49,7 @@ class DenTravakOrderList extends DenTravakAbstractElement {
                 hiddenElement.target = '_blank';
                 hiddenElement.download = 'orders.csv';
                 hiddenElement.click();
+                this.updateOrderList(json);
             });
             
     }
@@ -102,7 +103,10 @@ class DenTravakOrderList extends DenTravakAbstractElement {
                         ${order.name.charAt(0)}
                     </button>
                     <div class="bmd-list-group-col">
-                        <p class="list-group-item-heading">Telefoon nummer: ${order.mobilePhoneNumber}<span class="creationDate">${dateFns.distanceInWordsToNow(order.creationDate)} ago</span></p>
+                        <p class="list-group-item-heading">Telefoon nummer: ${order.mobilePhoneNumber}
+                            <span class="creationDate">${dateFns.distanceInWordsToNow(order.creationDate)} ago</span>
+                            <span> Printed: ${order.printed}</span>
+                        </p>
                         <p class="list-group-item-text">Bestelling: ${order.name} - ${order.breadType.toLowerCase()}</p>
                     </div>
                     <div class="dt-order-info">

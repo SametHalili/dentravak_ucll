@@ -16,8 +16,8 @@ class DenTravakSandwichesList extends DenTravakAbstractElement {
     }
 
     initEventListeners() {
-        this.byId('new-sandwich-btn').addEventListener('click', () => this.app().showEditSandwich())
-        this.byId('show-orders-btn').addEventListener('click', () => this.app().showOrderList())
+        this.byId('new-sandwich-btn').addEventListener('click', () => this.app().showEditSandwich());
+        this.byId('show-orders-btn').addEventListener('click', () => this.app().showOrderList());
     }
 
     updateSandwichesList(sandwiches) {

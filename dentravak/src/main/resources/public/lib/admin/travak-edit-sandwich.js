@@ -19,22 +19,36 @@ class DenTravakEditSandwich extends DenTravakAbstractElement {
 
     saveSandwich() {
         var id = this.sandwich.id;
- 		let sandwich = {};
-		if (id){
+        let sandwich = {}
+        if (id){
 		    sandwich.id = id;
 		}
         sandwich.name =   this.byId('name').value
         sandwich.ingredients =   this.byId('ingredients').value
         sandwich.price =   this.byId('price').value
 
-        //fetch('http://localhost:8234/den-travak/sandwiches')
-        fetch('http://193.191.177.8:10418/den-travak/sandwiches', {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json; charset=utf-8",
-            },
-            body: JSON.stringify(sandwich),
-        })
+        if(sandwich.id == null) {
+            //fetch('http://localhost:8234/den-travak/sandwiches')
+            fetch('http://193.191.177.8:10418/den-travak/sandwiches', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8",
+                },
+                body: JSON.stringify(sandwich),
+            });
+        }
+        else {
+            //fetch('http://localhost:8234/den-travak/sandwiches')
+            fetch('http://193.191.177.8:10418/den-travak/sandwiches/' + this.sandwich.id, {
+                method: 'PUT',
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8",
+                },
+                body: JSON.stringify(sandwich),
+            })
+        }
+
+        
 
         this.app().dispatchEvent(new CustomEvent('save-succeeded', {detail: this.sandwich}));
     }

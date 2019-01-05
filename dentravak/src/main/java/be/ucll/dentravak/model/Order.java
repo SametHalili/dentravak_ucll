@@ -21,11 +21,20 @@ public class Order {
     @CreationTimestamp
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime creationDate;
+    private boolean printed = false;
 
     public enum BreadType {
         BOTERHAMMEKES,
         TURKS_BROOD,
         WRAP
+    }
+
+    public boolean isPrinted() {
+        return printed;
+    }
+
+    public void setPrinted(boolean printed) {
+        this.printed = printed;
     }
 
     public Order () {}
